@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -794,6 +795,27 @@ class _LoginWidgetState extends State<LoginWidget>
                                     ),
                                     createdTime: getCurrentTimestamp,
                                   ));
+
+                              await SendEmailCall.call(
+                                to: _model.signupEmailTextController.text,
+                                subject: 'Welcome to Venthai\'s Todo App',
+                                text: 'Welcome.',
+                              );
+
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Please check your email for a welcome message',
+                                    style: TextStyle(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                    ),
+                                  ),
+                                  duration: const Duration(milliseconds: 4000),
+                                  backgroundColor:
+                                      FlutterFlowTheme.of(context).secondary,
+                                ),
+                              );
 
                               context.goNamedAuth(
                                   'onboarding', context.mounted);
